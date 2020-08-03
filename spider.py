@@ -47,19 +47,25 @@ def get_one_month_daytime(year, month):
     return result
 
 
-def daytime_recording(year_start, year_end):
-    writer = pd.ExcelWriter('data/三亚日出日落表.xlsx')
-    for year in range(year_start, year_end + 1):
-        result = pd.DataFrame()
-        for month in range(1, 13):
+def daytime_recording(year_start, month_start, year_end, month_end):
+    result = pd.DataFrame()
+    for year in range(year_start, year_end+1):
+        if year == year_start:
+            month = month_start
+            final_month = 13
+        elif year == year_end:
+            month = 1
+            final_month = month_end + 1
+        else:
+            month = 1
+            final_month = 13
+        while month < final_month:
             temp = get_one_month_daytime(year, month)
             result = pd.concat([result, temp], axis=0)
+            print(year, month, 'Done!')
+            month += 1
             time.sleep(random.random() * 5)
-        print('year {}  daytime done!'.format(year))
-        result.to_excel(writer, sheet_name=str(year), index=False)
-    writer.save()
-
-    return None
+    return result
 
 
 def get_fest_data(year):
