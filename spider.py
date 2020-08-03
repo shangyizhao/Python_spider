@@ -1,3 +1,12 @@
+import pandas as pd
+import time
+import random
+import datetime
+import re
+from urllib import request, error  # 制定URL, 获取网页数据
+from bs4 import BeautifulSoup  # 网页解析, 获取数据
+
+
 def ask_url(url, decode_method):
     # 用户代理, 表示告诉服务器我们是什么类型的浏览器
     # 本质上是告诉浏览器, 我们可以接受什么水平的数据
